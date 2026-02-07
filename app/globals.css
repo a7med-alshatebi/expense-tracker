@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --primary: #3b82f6;
-  --primary-dark: #2563eb;
-  --success: #10b981;
+  --background: #eaf6ff;
+  --foreground: #111111;
+  --primary: #4fa3d1;
+  --primary-dark: #3b86b0;
+  --success: #22c55e;
   --danger: #ef4444;
-  --border: #e2e8f0;
+  --border: #111111;
   --card-bg: #ffffff;
+  --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+  --soft-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 @theme inline {
@@ -18,17 +20,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f172a;
-    --foreground: #f1f5f9;
-    --primary: #3b82f6;
-    --primary-dark: #2563eb;
-    --border: #334155;
-    --card-bg: #1e293b;
-  }
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -36,7 +27,7 @@
 }
 
 body {
-  background: var(--background);
+  background: radial-gradient(circle at top, #f2f9ff 0%, #e7f2ff 45%, #dcecff 100%);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   line-height: 1.6;
@@ -45,29 +36,29 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2.5rem 2rem 3rem;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 .header h1 {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: var(--foreground);
 }
 
 .header p {
-  font-size: 1.1rem;
-  color: #64748b;
+  font-size: 1.05rem;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .main-content {
   display: grid;
-  gap: 2rem;
+  gap: 2.25rem;
   grid-template-columns: 1fr;
 }
 
@@ -81,9 +72,21 @@ body {
 .expenses-section {
   background: var(--card-bg);
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.add-expense-section::before,
+.expenses-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .add-expense-section h2,
@@ -115,7 +118,7 @@ body {
 .form-group input,
 .form-group select {
   padding: 0.75rem;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 8px;
   font-size: 1rem;
   background: var(--background);
@@ -165,23 +168,25 @@ body {
   color: white;
   padding: 0.875rem 1.5rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:hover {
   background: var(--primary-dark);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
   background: transparent;
   color: var(--foreground);
   padding: 0.7rem 1.1rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
@@ -201,10 +206,11 @@ body {
 
 .expense-summary {
   padding: 1.5rem;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  border-radius: 12px;
+  background: linear-gradient(135deg, #7bc4ea, #4fa3d1);
+  border-radius: 16px;
   color: white;
   text-align: center;
+  box-shadow: var(--soft-shadow);
 }
 
 .expense-summary h3 {
@@ -231,15 +237,17 @@ body {
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 14px;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  box-shadow: var(--soft-shadow);
 }
 
 .expense-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.14);
+  border-color: rgba(0, 0, 0, 0.28);
 }
 
 .expense-icon {
@@ -249,9 +257,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--card-bg);
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  background: #e8f3ff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
 }
 
 .expense-details {
@@ -273,7 +281,7 @@ body {
   display: flex;
   gap: 1rem;
   font-size: 0.875rem;
-  color: #64748b;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .category-badge {
@@ -315,7 +323,7 @@ body {
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
-  color: #64748b;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .empty-state p {
@@ -325,9 +333,10 @@ body {
 .category-breakdown {
   margin-bottom: 1.5rem;
   padding: 1.25rem;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--background);
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: #f2f7ff;
+  box-shadow: var(--soft-shadow);
 }
 
 .category-breakdown h3 {
@@ -342,8 +351,8 @@ body {
   height: 14px;
   border-radius: 999px;
   overflow: hidden;
-  background: #e2e8f0;
-  border: 1px solid var(--border);
+  background: #dbe9f6;
+  border: 1px solid rgba(0, 0, 0, 0.16);
   margin-bottom: 1rem;
 }
 
@@ -381,7 +390,7 @@ body {
 
 .breakdown-percent {
   margin-left: 0.5rem;
-  color: #64748b;
+  color: rgba(0, 0, 0, 0.6);
   font-weight: 500;
   font-size: 0.85rem;
 }
