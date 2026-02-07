@@ -1,12 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ExpenseForm from './components/ExpenseForm';
 import ExpenseList from './components/ExpenseList';
 import { Expense } from './types';
 
 export default function Home() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+
+  // Load expenses from localStorage on mount
+  useEffect(() => {
+    const savedExpenses = localStorage.getItem('expenses');
+    if (savedExpenses) {
+      try {
+        setExpenses(JSON.parse(savedExpenses));
+      } catch (error) {
+        console.error('Failed to load expenses:', error);
+      }
+    }
+  }, []);
+
+  // Save expenses to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('expenses', JSON.stringify(expenses));
+  }, [expenses]);
 
   const handleAddExpense = (expenseData: Omit<Expense, 'id'>) => {
     const newExpense: Expense = {
