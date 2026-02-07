@@ -60,12 +60,12 @@ export default function Home() {
 
   return (
     <div className="container">
-      <header className="header">
+      <header className="header fade-in-up">
         <h1>💰 Expense Tracker</h1>
         <p>Track your daily expenses and manage your budget</p>
       </header>
 
-      <section className="card summary-card">
+      <section className="card summary-card fade-in-up fade-in-up-delay-1">
         <div className="summary-item">
           <div className="summary-icon">💵</div>
           <div className="summary-content">
@@ -100,13 +100,13 @@ export default function Home() {
       </section>
 
       <main className="main-content">
-        <section className="card add-expense-section">
+        <section className="card add-expense-section fade-in-up fade-in-up-delay-2">
           <h2 className="card-title">Add New Expense</h2>
           <ExpenseForm onAddExpense={handleAddExpense} />
         </section>
 
         <div className="right-column">
-          <section className="card category-card">
+          <section className="card category-card fade-in-up fade-in-up-delay-3">
             <h2 className="card-title">Categories</h2>
             <CategoryBreakdown expenses={filteredExpenses} />
           </section>

@@ -48,7 +48,7 @@ export default function ExpensesPage() {
 
   return (
     <div className="container">
-      <header className="header">
+      <header className="header fade-in-up">
         <button 
           onClick={() => router.push('/')}
           className="btn-back"
@@ -59,7 +59,7 @@ export default function ExpensesPage() {
         <p>View and manage all your expenses</p>
       </header>
 
-      <section className="card summary-card">
+      <section className="card summary-card fade-in-up fade-in-up-delay-1">
         <div className="summary-item">
           <div className="summary-icon">💵</div>
           <div className="summary-content">
@@ -87,7 +87,7 @@ export default function ExpensesPage() {
         </div>
       </section>
 
-      <section className="card expenses-page-card">
+      <section className="card expenses-page-card fade-in-up fade-in-up-delay-2">
         <h2 className="card-title">Your Expenses</h2>
         <div className="date-filters">
           <div className="filter-group">
