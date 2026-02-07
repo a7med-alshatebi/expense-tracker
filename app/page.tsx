@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import ExpenseForm from './components/ExpenseForm';
 import ExpenseList from './components/ExpenseList';
+import CategoryBreakdown from './components/CategoryBreakdown';
 import { Expense } from './types';
 
 export default function Home() {
@@ -54,6 +55,7 @@ export default function Home() {
 
         <section className="expenses-section">
           <h2>Your Expenses</h2>
+          <CategoryBreakdown expenses={expenses} />
           <ExpenseList
             expenses={expenses}
             onDeleteExpense={handleDeleteExpense}
