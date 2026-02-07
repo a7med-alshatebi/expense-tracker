@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import ExpenseForm from './components/ExpenseForm';
-import CategoryBreakdown from './components/CategoryBreakdown';
-import { Expense } from './types';
+import ExpenseList from '../components/ExpenseList';
+import { Expense } from '../types';
 
-export default function Home() {
+export default function ExpensesPage() {
   const router = useRouter();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [startDate, setStartDate] = useState('');
@@ -24,22 +23,11 @@ export default function Home() {
     }
   }, []);
 
-  // Save expenses to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem('expenses', JSON.stringify(expenses));
-  }, [expenses]);
-
-  const handleAddExpense = (expenseData: Omit<Expense, 'id'>) => {
-    const newExpense: Expense = {
-      ...expenseData,
-      id: Date.now().toString(),
-    };
-    setExpenses([newExpense, ...expenses]);
-  };
-
   const handleDeleteExpense = (id: string) => {
     if (confirm('Are you sure you want to delete this expense?')) {
-      setExpenses(expenses.filter((expense) => expense.id !== id));
+      const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+      setExpenses(updatedExpenses);
+      localStorage.setItem('expenses', JSON.stringify(updatedExpenses));
     }
   };
 
@@ -61,8 +49,14 @@ export default function Home() {
   return (
     <div className="container">
       <header className="header">
-        <h1>💰 Expense Tracker</h1>
-        <p>Track your daily expenses and manage your budget</p>
+        <button 
+          onClick={() => router.push('/')}
+          className="btn-back"
+        >
+          ← Back
+        </button>
+        <h1>💰 All Expenses</h1>
+        <p>View and manage all your expenses</p>
       </header>
 
       <section className="card summary-card">
@@ -91,27 +85,45 @@ export default function Home() {
             </span>
           </div>
         </div>
-        <button
-          onClick={() => router.push('/expenses')}
-          className="btn-view-all"
-        >
-          View All →
-        </button>
       </section>
 
-      <main className="main-content">
-        <section className="card add-expense-section">
-          <h2 className="card-title">Add New Expense</h2>
-          <ExpenseForm onAddExpense={handleAddExpense} />
-        </section>
-
-        <div className="right-column">
-          <section className="card category-card">
-            <h2 className="card-title">Categories</h2>
-            <CategoryBreakdown expenses={filteredExpenses} />
-          </section>
+      <section className="card expenses-page-card">
+        <h2 className="card-title">Your Expenses</h2>
+        <div className="date-filters">
+          <div className="filter-group">
+            <label htmlFor="startDate">Start Date</label>
+            <input
+              type="date"
+              id="startDate"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+          </div>
+          <div className="filter-group">
+            <label htmlFor="endDate">End Date</label>
+            <input
+              type="date"
+              id="endDate"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+          </div>
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={() => {
+              setStartDate('');
+              setEndDate('');
+            }}
+          >
+            Clear Filters
+          </button>
         </div>
-      </main>
+        <ExpenseList
+          expenses={filteredExpenses}
+          onDeleteExpense={handleDeleteExpense}
+        />
+      </section>
     </div>
   );
 }

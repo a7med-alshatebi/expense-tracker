@@ -17,13 +17,23 @@ const categories: ExpenseCategory[] = [
 ];
 
 const categoryColors: Record<ExpenseCategory, string> = {
-  Food: '#f59e0b',
-  Transportation: '#3b82f6',
-  Entertainment: '#a855f7',
-  Shopping: '#ef4444',
+  Food: '#ff6b6b',
+  Transportation: '#4dabf7',
+  Entertainment: '#a78bfa',
+  Shopping: '#f783ac',
   Bills: '#64748b',
-  Health: '#10b981',
-  Other: '#8b5cf6',
+  Health: '#51cf66',
+  Other: '#ffd43b',
+};
+
+const categoryEmojis: Record<ExpenseCategory, string> = {
+  Food: '🍔',
+  Transportation: '🚗',
+  Entertainment: '🎮',
+  Shopping: '🛍️',
+  Bills: '📄',
+  Health: '💊',
+  Other: '📌',
 };
 
 export default function CategoryBreakdown({ expenses }: CategoryBreakdownProps) {
@@ -72,11 +82,14 @@ export default function CategoryBreakdown({ expenses }: CategoryBreakdownProps) 
           return (
             <div key={category} className="breakdown-item">
               <div className="breakdown-header">
-                <span className="breakdown-label">{category}</span>
-                <span className="breakdown-amount">
-                  ${amount.toFixed(2)}
-                  <span className="breakdown-percent">({percent.toFixed(1)}%)</span>
-                </span>
+                <div className="category-info">
+                  <span className="category-emoji">{categoryEmojis[category]}</span>
+                  <span className="breakdown-label">{category}</span>
+                </div>
+                <div className="category-stats">
+                  <span className="breakdown-amount">${amount.toFixed(2)}</span>
+                  <span className="breakdown-percent">{percent.toFixed(1)}%</span>
+                </div>
               </div>
               <div className="breakdown-bar">
                 <div
