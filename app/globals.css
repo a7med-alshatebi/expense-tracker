@@ -352,3 +352,67 @@ body {
   border-radius: 999px;
   transition: width 0.3s ease;
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.25rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header p {
+    font-size: 1rem;
+  }
+
+  .add-expense-section,
+  .expenses-section {
+    padding: 1.5rem;
+  }
+
+  .total-amount {
+    font-size: 2rem;
+  }
+
+  .expense-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .expense-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .expense-meta {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .add-expense-section,
+  .expenses-section {
+    padding: 1.25rem;
+  }
+
+  .expense-summary {
+    padding: 1.25rem;
+  }
+
+  .category-breakdown {
+    padding: 1rem;
+  }
+
+  .category-chart {
+    height: 12px;
+  }
+}
