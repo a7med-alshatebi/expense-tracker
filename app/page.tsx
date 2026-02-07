@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import ExpenseForm from './components/ExpenseForm';
+import ExpenseList from './components/ExpenseList';
 import { Expense } from './types';
 
 export default function Home() {
@@ -13,6 +14,12 @@ export default function Home() {
       id: Date.now().toString(),
     };
     setExpenses([newExpense, ...expenses]);
+  };
+
+  const handleDeleteExpense = (id: string) => {
+    if (confirm('Are you sure you want to delete this expense?')) {
+      setExpenses(expenses.filter((expense) => expense.id !== id));
+    }
   };
 
   return (
@@ -30,9 +37,10 @@ export default function Home() {
 
         <section className="expenses-section">
           <h2>Your Expenses</h2>
-          <div className="empty-state">
-            <p>No expenses yet. Add your first expense!</p>
-          </div>
+          <ExpenseList
+            expenses={expenses}
+            onDeleteExpense={handleDeleteExpense}
+          />
         </section>
       </main>
     </div>
