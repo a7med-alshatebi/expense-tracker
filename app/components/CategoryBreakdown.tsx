@@ -43,7 +43,6 @@ export default function CategoryBreakdown({ expenses }: CategoryBreakdownProps) 
 
   return (
     <div className="category-breakdown">
-      <h3>Category Breakdown</h3>
       {totalAmount > 0 && (
         <div className="category-chart" aria-label="Spending by category chart">
           {totals

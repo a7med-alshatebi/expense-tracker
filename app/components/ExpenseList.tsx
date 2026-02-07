@@ -17,15 +17,8 @@ export default function ExpenseList({ expenses, onDeleteExpense }: ExpenseListPr
     );
   }
 
-  const totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-
   return (
     <div className="expense-list">
-      <div className="expense-summary">
-        <h3>Total Expenses</h3>
-        <p className="total-amount">${totalAmount.toFixed(2)}</p>
-      </div>
-
       <div className="expenses">
         {expenses.map((expense) => (
           <ExpenseItem
