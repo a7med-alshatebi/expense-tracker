@@ -8,6 +8,8 @@ import { Expense } from './types';
 
 export default function Home() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   // Load expenses from localStorage on mount
   useEffect(() => {
@@ -40,6 +42,16 @@ export default function Home() {
     }
   };
 
+  const filteredExpenses = expenses.filter((expense) => {
+    if (startDate && expense.date < startDate) {
+      return false;
+    }
+    if (endDate && expense.date > endDate) {
+      return false;
+    }
+    return true;
+  });
+
   return (
     <div className="container">
       <header className="header">
@@ -55,9 +67,39 @@ export default function Home() {
 
         <section className="expenses-section">
           <h2>Your Expenses</h2>
-          <CategoryBreakdown expenses={expenses} />
+          <div className="date-filters">
+            <div className="filter-group">
+              <label htmlFor="startDate">Start Date</label>
+              <input
+                type="date"
+                id="startDate"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+            <div className="filter-group">
+              <label htmlFor="endDate">End Date</label>
+              <input
+                type="date"
+                id="endDate"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => {
+                setStartDate('');
+                setEndDate('');
+              }}
+            >
+              Clear Filters
+            </button>
+          </div>
+          <CategoryBreakdown expenses={filteredExpenses} />
           <ExpenseList
-            expenses={expenses}
+            expenses={filteredExpenses}
             onDeleteExpense={handleDeleteExpense}
           />
         </section>
