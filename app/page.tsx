@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ExpenseForm from './components/ExpenseForm';
 import CategoryBreakdown from './components/CategoryBreakdown';
+import BackToTopButton from './components/BackToTopButton';
 import { Expense } from './types';
 
 export default function Home() {
@@ -112,6 +113,7 @@ export default function Home() {
           </section>
         </div>
       </main>
+      <BackToTopButton />
     </div>
   );
 }

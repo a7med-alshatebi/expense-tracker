@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ExpenseList from '../components/ExpenseList';
+import BackToTopButton from '../components/BackToTopButton';
 import { Expense } from '../types';
 
 export default function ExpensesPage() {
@@ -124,6 +125,7 @@ export default function ExpensesPage() {
           onDeleteExpense={handleDeleteExpense}
         />
       </section>
+      <BackToTopButton />
     </div>
   );
 }
